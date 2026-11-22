@@ -1,0 +1,66 @@
+[[assumption]]
+id = "A1-nerve-dependence"
+module = "trigger"
+statement = "Blastema formation and outgrowth require nerve signal; denervated limbs do not regenerate."
+status = "supported"
+params = ["model.cells.nerveThreshold", "model.signals.nerve.production", "model.treatment.denervate"]
+citations = [
+  { ref = "Singer M. (1952) The influence of the nerve in regeneration of the amphibian extremity. Q Rev Biol." },
+  { ref = "Kumar A. et al. (2007) Molecular basis for the nerve dependence of limb regeneration in an adult vertebrate. Science." },
+]
+
+[[assumption]]
+id = "A2-distal-growth-signal"
+module = "progenitor-pool"
+statement = "The AEC at the distal tip provides a signal required for blastema outgrowth."
+status = "supported"
+params = ["model.signals.distalGrowth.production", "model.cells.distalGrowthThreshold"]
+citations = [
+  { ref = "Endo T., Bryant S.V., Gardiner D.M. (2004) A stepwise model system for limb regeneration. Dev Biol." },
+]
+
+[[assumption]]
+id = "A3-local-lineage-restricted-progenitors"
+module = "progenitor-pool"
+statement = "Progenitors come from tissue next to the cut and keep a memory of their tissue of origin."
+status = "supported"
+params = ["model.cells.blastemaDepth"]
+citations = [
+  { ref = "Kragl M. et al. (2009) Cells keep a memory of their tissue origin during axolotl limb regeneration. Nature." },
+]
+notes = "Only the 'local origin' half is modelled; tissue lineages are roadmap M3."
+
+[[assumption]]
+id = "A4-proximalization"
+module = "pattern"
+statement = "Excess proximal signal while the blastema forms proximalizes positional identity and duplicates proximal structure."
+status = "supported"
+params = ["model.treatment.exogenousProximal", "model.cells.proximalSensitivity", "model.signals.proximal.production", "model.signals.proximal.tipDegradation"]
+citations = [
+  { ref = "Maden M. (1982) Vitamin A and pattern formation in the regenerating limb. Nature." },
+]
+
+[[assumption]]
+id = "A5-intercalation-stop"
+module = "termination"
+statement = "Outgrowth fills the gap between the stump's positional identity and the distal identity, then terminates."
+status = "hypothesis"
+params = ["model.cells.termination"]
+notes = "Intercalation is a classical idea; reducing it to one scalar along one axis is our simplification."
+
+[[assumption]]
+id = "A6-macrophages-required"
+module = "trigger"
+statement = "Macrophages are required for regeneration; depleting them leads to scarring."
+status = "supported"
+citations = [
+  { ref = "Godwin J.W., Pinto A.R., Rosenthal N.A. (2013) Macrophages are required for adult salamander limb regeneration. PNAS." },
+]
+notes = "Not modelled yet: roadmap M2."
+
+[[assumption]]
+id = "A7-shared-blastema-signalling"
+module = "pattern"
+statement = "When identity is reset, the blastema acts as one signalling compartment: every progenitor receives the mean shift."
+status = "hypothesis"
+params = ["model.cells.proximalSensitivity"]

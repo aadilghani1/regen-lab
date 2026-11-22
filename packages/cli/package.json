@@ -1,0 +1,19 @@
+{
+  "name": "@regen-lab/cli",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "regen": "./src/main.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@effect/platform-bun": "4.1.5",
+    "@regen-lab/core": "workspace:*",
+    "@regen-lab/research": "workspace:*",
+    "@regen-lab/scenarios": "workspace:*",
+    "effect": "4.1.5"
+  }
+}

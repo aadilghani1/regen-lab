@@ -1,0 +1,19 @@
+{
+  "name": "@regen-lab/research",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@regen-lab/core": "workspace:*",
+    "@regen-lab/scenarios": "workspace:*",
+    "effect": "4.1.5",
+    "smol-toml": "^1.4.0",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@effect/platform-bun": "4.1.5"
+  }
+}
