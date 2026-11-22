@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use Regeneration Lab in your research, please cite it as below."
+title: "Regeneration Lab: an in-silico research lab for limb regeneration"
+type: software
+authors:
+  - family-names: Ghani
+    given-names: Aadil
+repository-code: "https://github.com/aadilghani1/regen-lab"
+url: "https://aadilghani1.github.io/regen-lab/"
+license: MIT
+abstract: >-
+  An open, computer-only research lab that models salamander limb regeneration
+  with a functional TypeScript agent-based model, an evidence registry linking
+  every model rule to its sources, tracked reproducible runs and an interactive
+  browser viewer.
+keywords:
+  - regeneration
+  - axolotl
+  - blastema
+  - computational biology
+  - agent-based model

@@ -1,10 +1,12 @@
 # Regeneration Lab
 
+[![ci](https://github.com/aadilghani1/regen-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/aadilghani1/regen-lab/actions/workflows/ci.yml) [![pages](https://github.com/aadilghani1/regen-lab/actions/workflows/pages.yml/badge.svg)](https://aadilghani1.github.io/regen-lab/) [![License: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE) [![Docs: CC BY 4.0](https://img.shields.io/badge/docs-CC%20BY%204.0-lightgrey.svg)](LICENSE-docs.md)
+
 An open, in-silico research lab for limb regeneration. It models how a salamander regrows exactly the limb it lost, and asks what a regeneration program would need in order to run in human tissue.
 
 > Research model. Not medical advice. This repository is computer-only: no wet-lab or clinical protocols (see [CONSTITUTION.md](CONSTITUTION.md)).
 
-**Try it in the browser:** https://aadilghani1.github.io/regen-lab/ (once Pages is enabled). Start with *Lesson 1: The limb that knows when to stop*.
+**Try it in the browser:** https://aadilghani1.github.io/regen-lab/. Start with *Lesson 1: The limb that knows when to stop*.
 
 ## What's here
 
@@ -18,7 +20,7 @@ An open, in-silico research lab for limb regeneration. It models how a salamande
 
 ## Quick start
 
-Requires [Bun](https://bun.sh) 1.2 or newer.
+Requires [Bun](https://bun.sh) 1.4 or newer (pinned in `package.json` as `packageManager`).
 
 ```bash
 bun install
@@ -50,7 +52,11 @@ bun run dev:viewer                  # http://localhost:5173
 
 ## Contributing
 
-Read [CONSTITUTION.md](CONSTITUTION.md), then [CONTRIBUTING.md](CONTRIBUTING.md). Biologists are especially welcome to review assumptions in Discussions.
+Read [CONSTITUTION.md](CONSTITUTION.md), then [CONTRIBUTING.md](CONTRIBUTING.md) and the [code of conduct](CODE_OF_CONDUCT.md). Report vulnerabilities privately ([SECURITY.md](SECURITY.md)). Biologists are especially welcome to review assumptions in Discussions.
+
+## Citing
+
+Use the "Cite this repository" button on GitHub, or [CITATION.cff](CITATION.cff).
 
 ## License
 
