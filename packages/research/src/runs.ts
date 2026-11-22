@@ -37,10 +37,7 @@ export class RunStore extends Context.Service<
 >()("regen-lab/RunStore") {}
 
 export const runIdOf = (createdAt: Date, scenarioName: string, seed: number): string =>
-  `${createdAt
-    .toISOString()
-    .replaceAll(/[-:]/g, "")
-    .replace(/\.\d+Z$/, "Z")}-${scenarioName}-s${seed}`
+  `${createdAt.toISOString().replaceAll(/[-:.]/g, "")}-${scenarioName}-s${seed}`
 
 export const observationsCsv = (observations: readonly Observation[]): string =>
   [

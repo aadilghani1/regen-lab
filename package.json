@@ -11,6 +11,7 @@
     "lint:fix": "biome check --write .",
     "lint:comments": "bun scripts/check-no-comments.ts",
     "test": "bun test",
+    "regen": "bun packages/cli/src/main.ts",
     "bench": "bun scripts/bench.ts",
     "check": "bun run typecheck && bun run lint && bun run lint:comments && bun test && bun run bench"
   },

@@ -131,7 +131,7 @@ describe("evidence registry", () => {
 describe("tracked runs", () => {
   test("ids sort by time and name the scenario and seed", () => {
     expect(runIdOf(new Date("2026-11-22T10:11:12.345Z"), "baseline", 3)).toBe(
-      "20261122T101112Z-baseline-s3",
+      "20261122T101112345Z-baseline-s3",
     )
   })
 
@@ -155,7 +155,7 @@ describe("tracked runs", () => {
         Effect.provide(services),
       ),
     )
-    expect(location).toBe("memory/20260101T000000Z-denervated-s0")
+    expect(location).toBe("memory/20260101T000000000Z-denervated-s0")
     expect(saved[0]?.provenance.gitCommit).toBe("abc")
     expect(saved[0]?.summary.outcome).toBe("no-regeneration")
   })
