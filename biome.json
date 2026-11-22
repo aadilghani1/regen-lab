@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!**/node_modules", "!**/dist", "!**/golden/*.json"]
+    "includes": ["**", "!**/node_modules", "!**/dist", "!**/golden/*.json", "!**/*.md"]
   },
   "formatter": {
     "enabled": true,
