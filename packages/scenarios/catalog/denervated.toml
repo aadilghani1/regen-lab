@@ -1,0 +1,13 @@
+name = "denervated"
+summary = "All nerves removed at the moment of amputation."
+
+[benchmark]
+observation = "A denervated limb does not regenerate."
+expectedOutcome = "no-regeneration"
+assumptions = ["A1-nerve-dependence"]
+
+[model.treatment]
+denervate = true
+
+[population]
+nerveSupply = 0

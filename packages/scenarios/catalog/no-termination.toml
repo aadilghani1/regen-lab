@@ -1,0 +1,13 @@
+name = "no-termination"
+summary = "Negative control: progenitors ignore the distal positional identity."
+
+[benchmark]
+observation = "Without a stop rule, outgrowth never ends. The model must be able to show this failure."
+expectedOutcome = "uncontrolled-growth"
+assumptions = ["A5-intercalation-stop"]
+
+[model.cells]
+termination = false
+
+[population]
+termination = false

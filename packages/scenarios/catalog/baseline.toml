@@ -1,0 +1,10 @@
+name = "baseline"
+summary = "Mid-limb amputation of an intact, innervated limb."
+
+[benchmark]
+observation = "A limb amputated mid-way regrows exactly what was lost."
+expectedOutcome = "faithful-regeneration"
+assumptions = ["A1-nerve-dependence", "A2-distal-growth-signal", "A5-intercalation-stop"]
+
+[model.amputation]
+level = 0.5

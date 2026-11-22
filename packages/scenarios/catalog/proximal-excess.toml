@@ -1,0 +1,11 @@
+name = "proximal-excess"
+summary = "Extra proximal signal while the blastema forms."
+
+[benchmark]
+observation = "Excess proximal signal (e.g. retinoic acid) proximalizes the blastema and duplicates proximal structure."
+expectedOutcome = "duplication"
+assumptions = ["A4-proximalization", "A7-shared-blastema-signalling"]
+
+[model.treatment]
+exogenousProximal = 0.2
+exogenousWindow = [0, 40]

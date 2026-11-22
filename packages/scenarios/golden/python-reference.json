@@ -1,0 +1,191 @@
+{
+  "source": "Python engine regensim 0.1.0 (ported then deleted, ADR 0002)",
+  "seeds": 5,
+  "scenarios": {
+    "baseline": [
+      {
+        "seed": 0,
+        "outcome": "faithful",
+        "finalLength": 80,
+        "lengthRatio": 1.0,
+        "regrown": 40
+      },
+      {
+        "seed": 1,
+        "outcome": "faithful",
+        "finalLength": 80,
+        "lengthRatio": 1.0,
+        "regrown": 40
+      },
+      {
+        "seed": 2,
+        "outcome": "faithful",
+        "finalLength": 80,
+        "lengthRatio": 1.0,
+        "regrown": 40
+      },
+      {
+        "seed": 3,
+        "outcome": "faithful",
+        "finalLength": 80,
+        "lengthRatio": 1.0,
+        "regrown": 40
+      },
+      {
+        "seed": 4,
+        "outcome": "faithful",
+        "finalLength": 80,
+        "lengthRatio": 1.0,
+        "regrown": 40
+      }
+    ],
+    "denervated": [
+      {
+        "seed": 0,
+        "outcome": "no_regeneration",
+        "finalLength": 40,
+        "lengthRatio": 0.5,
+        "regrown": 0
+      },
+      {
+        "seed": 1,
+        "outcome": "no_regeneration",
+        "finalLength": 40,
+        "lengthRatio": 0.5,
+        "regrown": 0
+      },
+      {
+        "seed": 2,
+        "outcome": "no_regeneration",
+        "finalLength": 40,
+        "lengthRatio": 0.5,
+        "regrown": 0
+      },
+      {
+        "seed": 3,
+        "outcome": "no_regeneration",
+        "finalLength": 40,
+        "lengthRatio": 0.5,
+        "regrown": 0
+      },
+      {
+        "seed": 4,
+        "outcome": "no_regeneration",
+        "finalLength": 40,
+        "lengthRatio": 0.5,
+        "regrown": 0
+      }
+    ],
+    "distal_cut": [
+      {
+        "seed": 0,
+        "outcome": "faithful",
+        "finalLength": 80,
+        "lengthRatio": 1.0,
+        "regrown": 16
+      },
+      {
+        "seed": 1,
+        "outcome": "faithful",
+        "finalLength": 80,
+        "lengthRatio": 1.0,
+        "regrown": 16
+      },
+      {
+        "seed": 2,
+        "outcome": "faithful",
+        "finalLength": 80,
+        "lengthRatio": 1.0,
+        "regrown": 16
+      },
+      {
+        "seed": 3,
+        "outcome": "faithful",
+        "finalLength": 80,
+        "lengthRatio": 1.0,
+        "regrown": 16
+      },
+      {
+        "seed": 4,
+        "outcome": "faithful",
+        "finalLength": 80,
+        "lengthRatio": 1.0,
+        "regrown": 16
+      }
+    ],
+    "no_termination": [
+      {
+        "seed": 0,
+        "outcome": "uncontrolled_growth",
+        "finalLength": 122,
+        "lengthRatio": 1.525,
+        "regrown": 82
+      },
+      {
+        "seed": 1,
+        "outcome": "uncontrolled_growth",
+        "finalLength": 128,
+        "lengthRatio": 1.6,
+        "regrown": 88
+      },
+      {
+        "seed": 2,
+        "outcome": "uncontrolled_growth",
+        "finalLength": 130,
+        "lengthRatio": 1.625,
+        "regrown": 90
+      },
+      {
+        "seed": 3,
+        "outcome": "uncontrolled_growth",
+        "finalLength": 119,
+        "lengthRatio": 1.4875,
+        "regrown": 79
+      },
+      {
+        "seed": 4,
+        "outcome": "uncontrolled_growth",
+        "finalLength": 126,
+        "lengthRatio": 1.575,
+        "regrown": 86
+      }
+    ],
+    "ra_proximalized": [
+      {
+        "seed": 0,
+        "outcome": "duplication",
+        "finalLength": 100,
+        "lengthRatio": 1.25,
+        "regrown": 60
+      },
+      {
+        "seed": 1,
+        "outcome": "duplication",
+        "finalLength": 100,
+        "lengthRatio": 1.25,
+        "regrown": 60
+      },
+      {
+        "seed": 2,
+        "outcome": "duplication",
+        "finalLength": 100,
+        "lengthRatio": 1.25,
+        "regrown": 60
+      },
+      {
+        "seed": 3,
+        "outcome": "duplication",
+        "finalLength": 100,
+        "lengthRatio": 1.25,
+        "regrown": 60
+      },
+      {
+        "seed": 4,
+        "outcome": "duplication",
+        "finalLength": 100,
+        "lengthRatio": 1.25,
+        "regrown": 60
+      }
+    ]
+  }
+}

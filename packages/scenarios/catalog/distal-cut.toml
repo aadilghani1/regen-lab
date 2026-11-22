@@ -1,0 +1,10 @@
+name = "distal-cut"
+summary = "Amputation near the tip, leaving less to regrow."
+
+[benchmark]
+observation = "A distal amputation regrows only the distal part."
+expectedOutcome = "faithful-regeneration"
+assumptions = ["A5-intercalation-stop"]
+
+[model.amputation]
+level = 0.8
