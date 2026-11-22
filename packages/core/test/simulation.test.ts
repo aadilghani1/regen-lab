@@ -1,6 +1,14 @@
 import { describe, expect, test } from "bun:test"
 import fc from "fast-check"
-import { advance, CellKind, cellAt, initialize, type SimulationState, step } from "../src/index.ts"
+import {
+  advance,
+  CellKind,
+  cellAt,
+  createStepper,
+  initialize,
+  type SimulationState,
+  step,
+} from "../src/index.ts"
 import { smallModelParameters } from "./fixtures.ts"
 
 const snapshot = (state: SimulationState) => ({
@@ -72,5 +80,17 @@ describe("cellAt", () => {
         expect(cellAt(parameters, state, x, y).kind).toBe(names[kind])
       }
     }
+  })
+})
+
+describe("createStepper", () => {
+  test("reused buffers give the same result as advance, across many calls", () => {
+    const parameters = smallModelParameters(7)
+    const initial = initialize(parameters)
+    const stepper = createStepper(parameters)
+    let current = initial
+    for (const chunk of [1, 4, 2, 9, 3]) current = stepper.advance(current, chunk)
+    expect(snapshot(current)).toEqual(snapshot(advance(parameters, initial, 19)))
+    expect(snapshot(initial)).toEqual(snapshot(initialize(parameters)))
   })
 })

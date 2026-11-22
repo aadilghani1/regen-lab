@@ -184,7 +184,36 @@ export const advanceObserving = (
   return current
 }
 
+export interface Stepper {
+  readonly advance: (
+    state: SimulationState,
+    steps: number,
+    onStep?: (state: SimulationState) => void,
+  ) => SimulationState
+}
+
 const ignore = (): void => undefined
+
+export const createStepper = (
+  parameters: ModelParameters,
+  random: RandomSource = counterRandom(parameters.run.seed),
+): Stepper => {
+  const lattice = createLattice(parameters.lattice)
+  const buffers = [allocateBuffers(lattice), allocateBuffers(lattice)] as const
+  const workspace = allocateWorkspace(lattice)
+  const otherThan = (state: SimulationState): StateBuffers =>
+    state.tissue === buffers[0].tissue ? buffers[1] : buffers[0]
+  return {
+    advance: (state, steps, onStep = ignore) => {
+      let current = state
+      for (let i = 0; i < steps; i++) {
+        current = stepInto(parameters, random, current, otherThan(current), workspace)
+        onStep(current)
+      }
+      return current
+    },
+  }
+}
 
 export const advance = (
   parameters: ModelParameters,

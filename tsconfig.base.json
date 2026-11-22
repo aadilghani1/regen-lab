@@ -16,6 +16,6 @@
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["bun"]
+    "types": ["bun", "vite/client"]
   }
 }

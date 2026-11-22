@@ -13,6 +13,8 @@
     "test": "bun test",
     "regen": "bun packages/cli/src/main.ts",
     "bench": "bun scripts/bench.ts",
+    "dev:viewer": "bun run --cwd packages/viewer dev",
+    "build:viewer": "bun run --cwd packages/viewer build",
     "check": "bun run typecheck && bun run lint && bun run lint:comments && bun test && bun run bench"
   },
   "devDependencies": {
