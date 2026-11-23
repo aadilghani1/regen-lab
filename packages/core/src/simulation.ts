@@ -101,7 +101,7 @@ export const initialize = (parameters: ModelParameters): SimulationState => {
   amputateInto(lattice, tissue, cutX, parameters.treatment.denervate)
   return {
     step: 0,
-    woundOpen: true,
+    woundOpen: cutX < lattice.bodyWallEnd + lattice.limbLength,
     cutX,
     blastemaSize: 0,
     divisions: 0,
@@ -131,7 +131,7 @@ export const stepInto = (
     workspace.growingFace,
   )
   advanceSignalsInto(lattice, signals, parameters.signals, workspace.fluxes, workspace.scratch)
-  const blastemaForms = from.step === parameters.cells.woundHealingSteps
+  const blastemaForms = from.woundOpen && from.step === parameters.cells.woundHealingSteps
   const blastemaSize = blastemaForms
     ? formBlastemaInto(lattice, parameters.cells, tissue, signals, from.proximalBaseline, from.cutX)
     : from.blastemaSize

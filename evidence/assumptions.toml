@@ -46,7 +46,7 @@ module = "termination"
 statement = "Outgrowth fills the gap between the stump's positional identity and the distal identity, then terminates."
 status = "hypothesis"
 params = ["model.cells.termination"]
-notes = "Intercalation is a classical idea; reducing it to one scalar along one axis is our simplification. Completion requires target length within 5%, ordered nerve-row identity, an exhausted progenitor pool and no recent length increase."
+notes = "Intercalation is a classical idea; reducing it to one scalar along one axis is our simplification. Completion requires target length within 5%, ordered nerve-row identity, an exhausted progenitor pool and no recent length increase. Extending at least one full identity increment beyond the distal identity records failure of termination even after boundary crowding exhausts the pool."
 
 [[assumption]]
 id = "A6-macrophages-required"

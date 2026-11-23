@@ -16,6 +16,9 @@ export type Outcome = (typeof OUTCOMES)[number]
 export interface OutcomeEvidence {
   readonly lengthRatio: number
   readonly blastemaSize: number
+  readonly insufficientHistory?: boolean
+  readonly boundaryLimited?: boolean
+  readonly exceededDistalIdentity?: boolean
   readonly orderedIdentity: boolean
   readonly progenitorsExhausted: boolean
   readonly stillGrowing: boolean
@@ -37,12 +40,21 @@ const FAITHFUL_TOLERANCE = 0.05
 
 export const classifyOutcome = (evidence: OutcomeEvidence): Outcome => {
   if (evidence.blastemaSize === 0) return "no-regeneration"
-  if (evidence.stillGrowing && evidence.lengthRatio > 1 + FAITHFUL_TOLERANCE) {
+  if (
+    evidence.exceededDistalIdentity ||
+    (evidence.stillGrowing && evidence.lengthRatio > 1 + FAITHFUL_TOLERANCE)
+  ) {
     return "uncontrolled-growth"
   }
+  if (evidence.boundaryLimited) return "incomplete-regeneration"
   if (evidence.lengthRatio < 1 - FAITHFUL_TOLERANCE) return "incomplete-regeneration"
   if (evidence.lengthRatio > 1 + FAITHFUL_TOLERANCE) return "duplication"
-  if (evidence.stillGrowing || !evidence.progenitorsExhausted || !evidence.orderedIdentity)
+  if (
+    evidence.insufficientHistory ||
+    evidence.stillGrowing ||
+    !evidence.progenitorsExhausted ||
+    !evidence.orderedIdentity
+  )
     return "incomplete-regeneration"
   return "faithful-regeneration"
 }
@@ -74,6 +86,10 @@ const positionalMetricsOf = (
   const compared = Math.min(finalLength, lattice.limbLength)
   let previous = -Infinity
   let orderedIdentity = true
+  const firstOverrun = 1 + 1 / lattice.limbLength - 1e-9
+  const exceededDistalIdentity = trajectory.final.tissue.positionalIdentity.some(
+    (value) => value >= firstOverrun,
+  )
   let error = 0
   for (let offset = 0; offset < finalLength; offset++) {
     const x = lattice.bodyWallEnd + offset
@@ -83,7 +99,11 @@ const positionalMetricsOf = (
     previous = identity
     if (offset < compared) error += Math.abs(identity - intactIdentityAt(lattice, x))
   }
-  return { positionalError: compared ? error / compared : 0, orderedIdentity }
+  return {
+    positionalError: compared ? error / compared : 0,
+    orderedIdentity,
+    exceededDistalIdentity,
+  }
 }
 
 export const summarize = (parameters: ModelParameters, trajectory: Trajectory): Summary => {
@@ -92,13 +112,18 @@ export const summarize = (parameters: ModelParameters, trajectory: Trajectory): 
   const finalLength = trajectory.observations.at(-1)?.limbLength ?? stumpLength
   const missing = originalLength - stumpLength
   const regrown = finalLength - stumpLength
-  const { positionalError, orderedIdentity } = positionalMetricsOf(
+  const { positionalError, orderedIdentity, exceededDistalIdentity } = positionalMetricsOf(
     parameters,
     trajectory,
     finalLength,
   )
   const evidence: OutcomeEvidence = {
+    insufficientHistory: trajectory.observations.length <= GROWTH_WINDOW,
     orderedIdentity,
+    boundaryLimited:
+      !parameters.cells.termination &&
+      finalLength === parameters.lattice.width - parameters.lattice.bodyWallEnd,
+    exceededDistalIdentity,
     progenitorsExhausted:
       trajectory.final.blastemaSize > 0 && trajectory.observations.at(-1)?.progenitors === 0,
     lengthRatio: finalLength / originalLength,
@@ -114,8 +139,9 @@ export const summarize = (parameters: ModelParameters, trajectory: Trajectory): 
     regrown,
     regrowthRatio: missing === 0 ? 0 : regrown / missing,
     positionalError,
-    terminatedAtStep: evidence.progenitorsExhausted
-      ? terminationStepOf(parameters, trajectory.observations)
-      : null,
+    terminatedAtStep:
+      evidence.progenitorsExhausted && !exceededDistalIdentity && !evidence.boundaryLimited
+        ? terminationStepOf(parameters, trajectory.observations)
+        : null,
   }
 }
