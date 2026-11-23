@@ -42,6 +42,7 @@ export interface CellParameters {
 }
 
 export interface TreatmentParameters {
+  readonly positionalTissue: "both" | "anterior-only"
   readonly denervate: boolean
   readonly exogenousProximal: number
   readonly exogenousWindow: readonly [start: number, end: number]

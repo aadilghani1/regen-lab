@@ -22,7 +22,12 @@ export const modelParameters = (overrides: Partial<ModelParameters> = {}): Model
     termination: true,
     reinnervation: true,
   },
-  treatment: { denervate: false, exogenousProximal: 0, exogenousWindow: [0, 40] },
+  treatment: {
+    positionalTissue: "both",
+    denervate: false,
+    exogenousProximal: 0,
+    exogenousWindow: [0, 40],
+  },
   run: { seed: 0, steps: 400, warmupSteps: 150 },
   ...overrides,
 })

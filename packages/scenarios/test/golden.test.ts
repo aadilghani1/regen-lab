@@ -22,9 +22,15 @@ const goldenRows = golden.scenarios as Record<string, GoldenRow[]>
 
 const SEEDS = [0, 1, 2, 3, 4]
 
-describe.each(catalogFiles.map(loadCatalogScenario))("benchmark $name", (scenario) => {
-  const reference = goldenRows[pythonNames[scenario.name] ?? scenario.name] ?? []
-  const lengths = reference.map((row) => row.finalLength)
+const catalog = catalogFiles.map(loadCatalogScenario)
+
+test("every Python reference scenario has a catalog counterpart", () => {
+  const names = catalog.map(({ name }) => pythonNames[name] ?? name)
+  for (const name of Object.keys(goldenRows)) expect(names).toContain(name)
+})
+
+describe.each(catalog)("benchmark $name", (scenario) => {
+  const reference = goldenRows[pythonNames[scenario.name] ?? scenario.name]
   const summaries = SEEDS.map((seed) => {
     const seeded = withSeed(scenario, seed)
     return summarize(seeded.model, simulate(seeded.model))
@@ -35,6 +41,9 @@ describe.each(catalogFiles.map(loadCatalogScenario))("benchmark $name", (scenari
     expect(expected).toBeDefined()
     for (const summary of summaries) expect<Outcome | undefined>(summary.outcome).toBe(expected)
   })
+
+  if (!reference) return
+  const lengths = reference.map((row) => row.finalLength)
 
   test("matches the Python golden reference", () => {
     expect(reference.length).toBe(SEEDS.length)

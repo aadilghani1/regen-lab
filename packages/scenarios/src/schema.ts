@@ -64,6 +64,7 @@ const cells = z.strictObject({
 })
 
 const treatment = z.strictObject({
+  positionalTissue: z.enum(["both", "anterior-only"]).default("both"),
   denervate: z.boolean().default(false),
   exogenousProximal: nonNegative.default(0),
   exogenousWindow: z.tuple([count, count]).default([0, 40]),

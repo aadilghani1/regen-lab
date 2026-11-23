@@ -2,6 +2,14 @@
 
 Each milestone is done when its benchmarks pass and its assumptions are verified.
 
+## North star
+
+**Goal.** Explain which changes to the four modules are sufficient, in this model, for a mammal-like starting state to regenerate with ordered pattern and termination. Test that explanation against independent observations before interpreting it across species.
+
+**Metric.** Report the fraction of preregistered, held-out experimental contrasts whose predicted direction and endpoint both match the source. The denominator includes every contrast due for evaluation, including misses and unresolved cases. Count each independent contrast once. Seeds measure simulation variability. A control or observation used to design or tune a rule earns no prediction credit.
+
+**First target.** Resolve three held-out contrasts spanning at least two modules and match all three with one frozen model version. Before inspecting the held-out results, record the source-selection rule, expected directions, endpoint, horizon, seeds and parameter range. Count a match only when the registered controls pass across that range and the no-termination control remains detectable. Report the numerator, denominator and failures together. Today there are zero registered held-out contrasts due, so the score is unmeasured. The five foundation benchmarks and first M1 control are development evidence.
+
 ## v0.2: Foundations (this release)
 - [x] Pure TypeScript core, Effect edges, TOML scenarios, property tests
 - [x] Benchmarks: faithful regeneration, distal cut, denervation, proximal excess, no-termination control

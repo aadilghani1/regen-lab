@@ -64,3 +64,14 @@ module = "pattern"
 statement = "When identity is reset, the blastema acts as one signalling compartment: every progenitor receives the mean shift."
 status = "hypothesis"
 params = ["model.cells.proximalSensitivity"]
+
+[[assumption]]
+id = "A8-positional-interaction"
+module = "pattern"
+statement = "In this model the initial wound can signal in anterior-only tissue. Continued distal signal production after wound closure requires both positional identities."
+status = "hypothesis"
+params = ["model.treatment.positionalTissue"]
+citations = [
+  { ref = "Nacu E. et al. (2016) FGF8 and SHH substitute for anterior-posterior tissue interactions to induce limb regeneration. Nature.", doi = "10.1038/nature17972", pmid = "27120163" },
+]
+notes = "The abstract supports the qualitative anterior-only contrast. Switching production at wound closure is a modelling choice."

@@ -1,0 +1,10 @@
+name = "anterior-only"
+summary = "Innervated stump with anterior positional identity only."
+
+[benchmark]
+observation = "An anterior-only blastema forms but fails to sustain patterned outgrowth."
+expectedOutcome = "incomplete-regeneration"
+assumptions = ["A1-nerve-dependence", "A2-distal-growth-signal", "A8-positional-interaction"]
+
+[model.treatment]
+positionalTissue = "anterior-only"
