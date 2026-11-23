@@ -4,7 +4,7 @@ Research model. Not medical advice.
 
 In this model, under the registered assumptions, all five catalog outcomes held across seeds 0–4. Both untreated cuts regrew to 80 lattice columns with ordered nerve-row identity, exhausted their progenitors, and showed no length increase in the final 50 steps. The distal cut completed earlier on every seed. [Prediction](hypothesis.md)
 
-Model commit `3841bbccd1f28911365a56d69d0c80f4168ad469`. The [tracked runs](tracked-runs.tar.gz) contain the 25 catalog runs in `baseline-report/catalog/`, 15 additional baseline runs in the three `threshold-*` folders, and the sweep JSON in `sweeps/`. Each run includes the resolved configuration, seed, runtime, code commit, summary and observation history. The five default baseline runs also serve as the 0.2 threshold group.
+Model commit `4ead223f01760e8539b5faab12ca7c60bb28b14a`. The [tracked runs](tracked-runs.tar.gz) contain the 25 catalog runs in `baseline-report/catalog/`, 15 additional baseline runs in the three `threshold-*` folders, and the sweep JSON in `sweeps/`. Each run includes the resolved configuration, seed, runtime, code commit, summary and observation history. The five default baseline runs also serve as the 0.2 threshold group.
 
 ## Results at step 400
 
