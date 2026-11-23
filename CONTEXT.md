@@ -66,10 +66,10 @@ _Avoid_: stopping, growth arrest
 Every run ends in exactly one outcome.
 
 **Faithful regeneration**:
-The regenerate matches what was lost in length and positional identity.
+The regenerate reaches the target length within 5%, has nondecreasing nerve-row positional identity, exhausts its progenitors and shows no recent length increase.
 
 **Incomplete regeneration**:
-A blastema formed but outgrowth stopped short of the distal positional identity.
+A blastema formed, but the regenerate fell short of the target length or failed the completion criteria within the target range.
 
 **No regeneration**:
 No blastema formed.

@@ -12,8 +12,8 @@ citations = [
 [[assumption]]
 id = "A2-distal-growth-signal"
 module = "progenitor-pool"
-statement = "The AEC at the distal tip provides a signal required for blastema outgrowth."
-status = "supported"
+statement = "A distal tip signal gates progenitor outgrowth at a fixed threshold in the model."
+status = "hypothesis"
 params = ["model.signals.distalGrowth.production", "model.cells.distalGrowthThreshold"]
 citations = [
   { ref = "Endo T., Bryant S.V., Gardiner D.M. (2004) A stepwise model system for limb regeneration. Dev Biol.", doi = "10.1016/j.ydbio.2004.02.016", pmid = "15136146" },
@@ -22,13 +22,13 @@ citations = [
 [[assumption]]
 id = "A3-local-lineage-restricted-progenitors"
 module = "progenitor-pool"
-statement = "Progenitors come from tissue next to the cut and keep a memory of their tissue of origin."
-status = "supported"
+statement = "The model recruits progenitors from a fixed depth of tissue next to the cut."
+status = "hypothesis"
 params = ["model.cells.blastemaDepth"]
 citations = [
   { ref = "Kragl M. et al. (2009) Cells keep a memory of their tissue origin during axolotl limb regeneration. Nature.", doi = "10.1038/nature08152", pmid = "19571878" },
 ]
-notes = "Only the 'local origin' half is modelled; tissue lineages are roadmap M3."
+notes = "Kragl describes lineage restriction. The abstract does not establish the implemented recruitment depth. Lineages are roadmap M3."
 
 [[assumption]]
 id = "A4-proximalization"
@@ -46,7 +46,7 @@ module = "termination"
 statement = "Outgrowth fills the gap between the stump's positional identity and the distal identity, then terminates."
 status = "hypothesis"
 params = ["model.cells.termination"]
-notes = "Intercalation is a classical idea; reducing it to one scalar along one axis is our simplification."
+notes = "Intercalation is a classical idea; reducing it to one scalar along one axis is our simplification. Completion requires target length within 5%, ordered nerve-row identity, an exhausted progenitor pool and no recent length increase."
 
 [[assumption]]
 id = "A6-macrophages-required"
