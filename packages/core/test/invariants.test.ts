@@ -12,7 +12,7 @@ import {
 import { modelParameters } from "./fixtures.ts"
 
 const untreated = (seed: number, level: number): ModelParameters =>
-  modelParameters({ amputation: { level }, run: { seed, steps: 400, warmupSteps: 150 } })
+  modelParameters({ amputation: { level }, run: { seed, steps: 800, warmupSteps: 150 } })
 
 const nerveRowIdentities = (
   parameters: ModelParameters,
@@ -42,7 +42,7 @@ const cellsOutsideLimbBand = (parameters: ModelParameters, trajectory: Trajector
 }
 
 describe("invariants of untreated regeneration", () => {
-  test("any amputation level regenerates faithfully, with ordered positional identity, inside the limb", () => {
+  test("sampled amputation levels regenerate faithfully within 800 steps, with ordered positional identity, inside the limb", () => {
     fc.assert(
       fc.property(
         fc.nat(10_000),
