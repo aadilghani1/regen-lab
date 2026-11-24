@@ -1,5 +1,5 @@
 name = "denervated"
-summary = "All nerves removed at the moment of amputation."
+summary = "Remove the nerve signal. Can regrowth start?"
 
 [benchmark]
 observation = "A denervated limb does not regenerate."

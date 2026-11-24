@@ -8,8 +8,8 @@ export const HomePage = () => (
     <section className="flex max-w-2xl flex-col gap-2">
       <h1 className="text-2xl font-semibold">How does a salamander regrow a limb?</h1>
       <p className="text-ink-secondary">
-        An in-silico lab for limb regeneration. Cells on a grid read diffusing signals, form a
-        blastema, regrow what was lost, and stop. Change the experiment and watch what breaks.
+        An axolotl can regrow a lost limb. A human can heal the wound, but the limb stays missing.
+        Explore what starts growth in the axolotl model and what makes it stop.
       </p>
     </section>
     <section className="flex flex-col gap-3">
@@ -19,7 +19,6 @@ export const HomePage = () => (
           <Link key={lesson.slug} to="/learn/$slug" params={{ slug: lesson.slug }}>
             <Card className="h-full hover:border-accent">
               <CardTitle>{lesson.title}</CardTitle>
-              <CardDescription>Module: {lesson.module}</CardDescription>
             </Card>
           </Link>
         ))}
@@ -27,14 +26,17 @@ export const HomePage = () => (
     </section>
     <section className="flex flex-col gap-3">
       <h2 className="text-sm font-semibold uppercase tracking-wide text-ink-muted">Benchmarks</h2>
+      <p className="text-ink-secondary">
+        Each benchmark tests one prediction about regrowth. Pick one to see what happens.
+      </p>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {scenarios.map((scenario) => (
           <Link key={scenario.name} to="/scenario/$name" params={{ name: scenario.name }}>
             <Card className="flex h-full flex-col gap-2 hover:border-accent">
-              <CardTitle>{scenario.name}</CardTitle>
-              <CardDescription>
-                {scenario.benchmark?.observation ?? scenario.summary}
-              </CardDescription>
+              <CardTitle className="first-letter:uppercase">
+                {scenario.name.replaceAll("-", " ")}
+              </CardTitle>
+              <CardDescription>{scenario.summary}</CardDescription>
               {scenario.benchmark && <OutcomeBadge outcome={scenario.benchmark.expectedOutcome} />}
             </Card>
           </Link>

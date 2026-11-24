@@ -57,13 +57,13 @@ const ExperimentControls = ({
       />
       <ToggleControl
         label="Remove nerves"
-        hint="Denervate the limb at amputation"
+        hint="Switch off the nerve signal at the cut"
         checked={parameters.treatment.denervate}
         onChange={(denervate) => set({ denervate })}
       />
       <ToggleControl
         label="Termination"
-        hint="Progenitors stop at the distal positional identity"
+        hint="Stop growth when cells reach the tip"
         checked={parameters.cells.termination}
         onChange={(termination) => set({ termination })}
       />
