@@ -1,0 +1,10 @@
+{
+  "title": "An ATAC-seq Dataset Uncovers the Regulatory Landscape During Axolotl Limb Regeneration",
+  "pmid": 33869207,
+  "doi": "10.3389/fcell.2021.651145",
+  "citation": "Front Cell Dev Biol. 2021 Mar 30;9:651145. doi: 10.3389/fcell.2021.651145",
+  "license_code": "CC BY",
+  "accession": "PMC8044901.1",
+  "source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8044901.1/PMC8044901.1.txt",
+  "sha256": "a39c44fb8a72c26683abf9daa6369c4d2f45d2e057004ba8adf9e6522ffc18b1"
+}

@@ -6,6 +6,12 @@ interface RecordNode {
   readonly kind: string
   readonly title: string
   readonly text: string
+  readonly screen?: string
+  readonly publication?: string
+  readonly measured?: string
+  readonly groups?: string
+  readonly onset_review?: string
+  readonly independent_cohort?: string
   readonly implication?: string
   readonly paper?: string
   readonly location?: string
@@ -30,7 +36,13 @@ const loadIndex = async (): Promise<Library> => {
 }
 
 const label = (node: RecordNode) =>
-  node.kind === "Paper" ? (node.text ? "Full text" : "Citation") : node.kind
+  node.kind === "Paper"
+    ? node.text
+      ? "Local text"
+      : node.origin
+        ? "Archived text"
+        : "Citation"
+    : node.kind
 
 export const ResearchPage = () => {
   const query = useQuery({ queryKey: ["research-library"], queryFn: loadIndex })
@@ -50,13 +62,39 @@ export const ResearchPage = () => {
     )
   if (!query.data) return <p>Opening research library…</p>
   const { nodes, edges } = query.data
+  const papers = nodes.filter((n) => n.kind === "Paper")
+  const assessed = papers.filter((n) => n.onset_review)
+  const cohorts = new Set(assessed.map((n) => n.independent_cohort).filter(Boolean))
   const words = term.toLowerCase().trim().split(/\s+/).filter(Boolean)
   const matches = nodes
     .filter((n) => {
       if (scope === "Papers with text") {
         if (n.kind !== "Paper" || (!n.text && !n.origin)) return false
+      } else if (scope === "Onset reviews") {
+        if (!n.onset_review) return false
+      } else if (scope === "Measurements") {
+        if (!n.measured) return false
+      } else if (scope === "All papers") {
+        if (n.kind !== "Paper") return false
+      } else if (scope === "Axolotl limb studies") {
+        if (n.screen !== "Axolotl limb study") return false
       } else if (scope !== "All records" && label(n) !== scope) return false
-      const searchable = [n.title, n.id, n.authors, n.kind, n.text, n.module, n.status, label(n)]
+      const searchable = [
+        n.title,
+        n.id,
+        n.authors,
+        n.kind,
+        n.text,
+        n.module,
+        n.status,
+        n.measured,
+        n.groups,
+        n.location,
+        n.onset_review,
+        n.publication,
+        n.screen,
+        label(n),
+      ]
         .join(" ")
         .toLowerCase()
       return words.every((word) => searchable.includes(word))
@@ -73,8 +111,34 @@ export const ResearchPage = () => {
       <header className="border-b border-border pb-4">
         <h1 className="text-2xl font-semibold">Research</h1>
         <p className="text-ink-secondary">
-          Search papers and trace the ideas used in a simulation.
+          {papers.length} paper records · {papers.filter((n) => n.origin || n.text).length} with
+          text available · {papers.filter((n) => n.measured).length} with measurements indexed
         </p>
+        <details className="mt-3 max-w-prose text-sm">
+          <summary className="cursor-pointer font-medium">
+            Timing prediction · {assessed.length} studies checked · {cohorts.size} independent
+            datasets qualify
+          </summary>
+          <p className="mt-2 text-ink-secondary">
+            Does new tissue first appear at the same time after cuts at two different levels? A
+            study needs to report the first visible bud separately for both groups on the same
+            schedule. We count each eligible group of animals once and exclude data used to build
+            the model.
+          </p>
+          <button
+            type="button"
+            className="mt-2 text-accent underline underline-offset-4"
+            onClick={() => {
+              setView("Library")
+              setScope("Onset reviews")
+              setTerm("")
+              setSelected("")
+              setSection("")
+            }}
+          >
+            See the {assessed.length} studies checked for timing
+          </button>
+        </details>
       </header>
       <nav aria-label="Research views" className="flex gap-5 border-b border-border">
         {(["Findings", "Library"] as const).map((item) => (
@@ -148,11 +212,19 @@ export const ResearchPage = () => {
                 }}
                 className="mt-1 block rounded border border-border bg-surface-1 px-3 py-2"
               >
-                {["Papers with text", "Reading note", "Model rule", "Scenario", "All records"].map(
-                  (type) => (
-                    <option key={type}>{type}</option>
-                  ),
-                )}
+                {[
+                  "Papers with text",
+                  "All papers",
+                  "Axolotl limb studies",
+                  "Measurements",
+                  "Onset reviews",
+                  "Reading note",
+                  "Model rule",
+                  "Scenario",
+                  "All records",
+                ].map((type) => (
+                  <option key={type}>{type}</option>
+                ))}
               </select>
             </label>
           </div>
@@ -182,12 +254,37 @@ export const ResearchPage = () => {
             {active ? (
               <article className="min-w-0 space-y-3" aria-label="Selected record">
                 <p className="text-sm text-ink-muted">
-                  {[label(active), active.status, active.module, active.license]
+                  {[
+                    label(active),
+                    active.screen,
+                    active.publication,
+                    active.status,
+                    active.module,
+                    active.license,
+                  ]
                     .filter(Boolean)
                     .join(" · ")}
                 </p>
                 <h2 className="text-xl font-semibold">{active.title}</h2>
                 {active.authors && <p className="text-sm">{active.authors}</p>}
+                {active.measured && (
+                  <dl className="space-y-2 border-l-2 border-border pl-3 text-sm">
+                    {[
+                      ["What was measured", active.measured],
+                      ["Groups compared", active.groups],
+                      ["Where to check", active.location],
+                      ["Timing prediction", active.onset_review],
+                    ].map(
+                      ([name, value]) =>
+                        value && (
+                          <div key={name}>
+                            <dt className="text-ink-muted">{name}</dt>
+                            <dd>{value}</dd>
+                          </div>
+                        ),
+                    )}
+                  </dl>
+                )}
                 {active.source && (
                   <a className="underline" href={active.source}>
                     Original publication
@@ -242,7 +339,11 @@ export const ResearchPage = () => {
                     {active.text}
                   </div>
                 ) : (
-                  <p className="text-sm text-ink-secondary">Only the citation is stored locally.</p>
+                  <p className="text-sm text-ink-secondary">
+                    {active.origin
+                      ? "Open Source text to read the archived edition."
+                      : "Only the citation is stored locally."}
+                  </p>
                 )}
               </article>
             ) : (
