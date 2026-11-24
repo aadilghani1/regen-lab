@@ -30,6 +30,9 @@ export const emitFluxesInto = (
   const exogenous = isTreatmentActive(parameters, context.step)
     ? parameters.treatment.exogenousProximal
     : 0
+  const producesDistalSignal =
+    parameters.treatment.positionalTissue !== "anterior-only" ||
+    context.step <= parameters.cells.woundHealingSteps
   markGrowingFaceInto(lattice, tissue, growingFace)
   fluxes.degradation.nerve.fill(0)
   fluxes.degradation.distalGrowth.fill(0)
@@ -40,7 +43,8 @@ export const emitFluxesInto = (
     const isDifferentiatedLimb = inBand && tissue.kind[index] === CellKind.Differentiated
     const proximalness = Math.min(Math.max(1 - tissue.positionalIdentity[index], 0), 1)
     fluxes.production.nerve[index] = tissue.innervated[index] * nerve.production
-    fluxes.production.distalGrowth[index] = isFace ? distalGrowth.production : 0
+    fluxes.production.distalGrowth[index] =
+      isFace && producesDistalSignal ? distalGrowth.production : 0
     fluxes.production.proximal[index] =
       (isDifferentiatedLimb ? proximal.production * proximalness : 0) + exogenous
     fluxes.degradation.proximal[index] = isFace ? proximal.tipDegradation : 0
