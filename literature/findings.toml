@@ -1,0 +1,26 @@
+[[finding]]
+id = "developmental-stage"
+title = "Metamorphosis slowed regrowth in animals of the same age."
+text = "Axolotls that kept their larval features reached tissue differentiation in 26 days on average. Animals of the same age that had undergone metamorphosis took 55 days. Differentiation marks the appearance of specialized tissue. Full-size recovery comes later."
+implication = "Test whether changing the pace of cell division can reproduce the delay. The digit defects reported in the same study give us a separate outcome to explain."
+doi = "10.1002/reg2.8"
+location = "Results · timing of differentiation"
+anchor = "On average, metamorphs reached differentiation"
+
+[[finding]]
+id = "positional-memory"
+title = "New tissue can grow without rebuilding the missing pattern."
+text = "Of 34 small cartilage outgrowths examined after amputation, three formed a blastema that later regressed. The other 31 healed without one. None rebuilt the missing structure during eight weeks of observation."
+implication = "Score three events separately in the simulator: cells gather, tissue grows, and the correct structure appears. Length alone misses the difference."
+doi = "10.1371/journal.pone.0248051"
+location = "Results §2.1 · Figure 1"
+anchor = "3 of the 34 amputated structures"
+
+[[finding]]
+id = "later-growth"
+title = "A limb can have its pattern before it reaches adult proportions."
+text = "After the limb structures formed, the small regenerate continued to grow relative to the animal. The researchers tracked regenerating and intact limbs over time and distinguished early and late growth phases."
+implication = "Our current stop rule ends the simulation at a fixed length. To study later growth, compare limb length with body size and track what happens after the pattern appears."
+doi = "10.7554/eLife.68584"
+location = "Results · Figure 1"
+anchor = "Time course of growth in amputated"

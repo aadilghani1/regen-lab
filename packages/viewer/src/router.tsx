@@ -10,6 +10,7 @@ import { ComparePage } from "./routes/compare-page.tsx"
 import { HomePage } from "./routes/home-page.tsx"
 import { LessonPage } from "./routes/lesson-page.tsx"
 import { ReplayPage } from "./routes/replay-page.tsx"
+import { ResearchPage } from "./routes/research-page.tsx"
 import { ScenarioPage } from "./routes/scenario-page.tsx"
 import { explorationSearch } from "./simulation/explore.ts"
 
@@ -52,6 +53,7 @@ const replayRoute = createRoute({
 export const router = createRouter({
   routeTree: rootRoute.addChildren([
     homeRoute,
+    createRoute({ getParentRoute: () => rootRoute, path: "/research", component: ResearchPage }),
     scenarioRoute,
     lessonRoute,
     compareRoute,

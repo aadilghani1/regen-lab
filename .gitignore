@@ -4,3 +4,5 @@ runs/
 data/raw/
 .DS_Store
 *.tsbuildinfo
+.cache/research.sqlite
+packages/viewer/public/research-index.json

@@ -21,7 +21,8 @@
     "bench": "bun scripts/bench.ts",
     "dev:viewer": "bun run --cwd packages/viewer dev",
     "build:viewer": "bun run --cwd packages/viewer build",
-    "check": "bun run typecheck && bun run lint && bun run lint:comments && bun test && bun run bench"
+    "check": "bun run typecheck && bun run lint && bun run lint:comments && bun test && bun run bench",
+    "library": "python3 scripts/research_library.py"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.0",
