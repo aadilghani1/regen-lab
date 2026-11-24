@@ -1,5 +1,5 @@
 name = "distal-cut"
-summary = "Amputation near the tip, leaving less to regrow."
+summary = "Cut closer to the tip. How much needs to grow back?"
 
 [benchmark]
 observation = "A distal amputation regrows only the distal part."

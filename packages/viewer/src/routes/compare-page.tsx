@@ -101,7 +101,8 @@ export const ComparePage = () => {
         <div>
           <h1 className="text-xl font-semibold">Compare every benchmark</h1>
           <p className="text-ink-secondary">
-            Each scenario across several seeds, run in a background worker.
+            Follow each line to see how far the limb grows. Repeated runs show how much the result
+            varies.
           </p>
         </div>
         <div className="w-64">

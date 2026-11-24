@@ -1,5 +1,5 @@
 name = "baseline"
-summary = "Mid-limb amputation of an intact, innervated limb."
+summary = "Cut halfway along the limb. Does it grow back to its original length?"
 
 [benchmark]
 observation = "A limb amputated mid-way regrows exactly what was lost."

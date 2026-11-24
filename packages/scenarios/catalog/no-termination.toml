@@ -1,5 +1,5 @@
 name = "no-termination"
-summary = "Negative control: progenitors ignore the distal positional identity."
+summary = "Switch off the stop rule. Does the limb grow past its original tip?"
 
 [benchmark]
 observation = "Without a stop rule, outgrowth never ends. The model must be able to show this failure."

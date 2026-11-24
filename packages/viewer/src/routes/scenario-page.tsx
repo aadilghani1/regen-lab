@@ -19,11 +19,13 @@ export const ScenarioPage = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <h1 className="text-xl font-semibold">{scenario.name}</h1>
+        <h1 className="text-xl font-semibold first-letter:uppercase">
+          {scenario.name.replaceAll("-", " ")}
+        </h1>
         <p className="text-ink-secondary">{scenario.summary}</p>
         {scenario.benchmark && (
           <p className="flex flex-wrap items-center gap-2 text-sm text-ink-secondary">
-            Benchmark: {scenario.benchmark.observation} Expected:
+            Expected outcome
             <OutcomeBadge outcome={scenario.benchmark.expectedOutcome} />
           </p>
         )}
