@@ -1,5 +1,6 @@
 """Build the local research graph, export it for the viewer, or search its text."""
 import argparse
+import csv
 import hashlib
 import html
 import json
@@ -30,17 +31,24 @@ def graph(local_pdfs=True):
         node.update(fields)
         return key
 
+    receipts = [json.loads(path.read_text()) for path in sorted((ROOT / "literature/full-text").glob("*.json"))]
+    for record in receipts:
+        accession = record["accession"].split(".")[0]
+        if record.get("doi"):
+            aliases[f"PMC:{accession}"] = "doi:" + record["doi"].lower()
+        elif record.get("pmid"):
+            aliases[f"PMC:{accession}"] = f"pmid:{record['pmid']}"
+
     for line in (ROOT / "literature/search-log.jsonl").read_text().splitlines():
         if line.strip():
             d = json.loads(line)
-            paper(re.sub(r"</?(?:i|b|sub|sup)>", "", html.unescape(d["title"])), d["doi"], d["pmid"], f'{d["source"]}:{d["id"]}', authors=d["authors"] or "")
-    for path in sorted((ROOT / "literature/full-text").glob("*.json")):
-        d = json.loads(path.read_text())
-        cached = ROOT.parent / ".regen-paper-cache" / path.with_suffix(".txt").name
+            paper(re.sub(r"</?(?:i|b|sub|sup)>", "", html.unescape(d["title"])), d["doi"], d["pmid"], f'{d["source"]}:{d["id"]}', authors=d["authors"] or "", publication="Preprint" if d["source"] == "PPR" else "")
+    for d in receipts:
+        cached = ROOT.parent / ".regen-paper-cache" / (d["accession"] + ".txt")
         raw = cached.read_bytes() if cached.exists() else b""
         if cached.exists() and hashlib.sha256(raw).hexdigest() != d["sha256"]:
-            raise ValueError(f"Paper checksum mismatch: {path.name}")
-        paper(d["title"], d["doi"], d["pmid"], text=raw.decode(), license=d["license_code"],
+            raise ValueError(f"Paper checksum mismatch: {cached.name}")
+        paper(d["title"], d["doi"], d["pmid"], "PMC:" + d["accession"].split(".")[0], text=raw.decode(), license=d["license_code"],
               origin=d["source_url"], accession=d["accession"])
     for path in (sorted((ROOT.parent / ".regen-paper-cache/pdf").glob("*.json")) if local_pdfs else []):
         d = json.loads(path.read_text())
@@ -72,6 +80,19 @@ def graph(local_pdfs=True):
         for rule in re.findall(r"\bA\d+-[a-z-]+", body):
             if rule in nodes:
                 edges.add((key, "discusses", rule))
+    for filename in ("title-screen.tsv", "measurements.tsv"):
+        with (ROOT / "literature" / filename).open() as stream:
+            seen = set()
+            for row in csv.DictReader(stream, delimiter="\t"):
+                key = aliases[row.pop("paper")]
+                if key in seen:
+                    raise ValueError(f"Duplicate {filename} record for {key}")
+                seen.add(key)
+                nodes[key].update(row)
+                if "measured" in row and not all(row[k] for k in ("measured", "groups", "location")):
+                    raise ValueError(f"Incomplete measurement for {key}")
+                if row.get("independent_cohort") and not row.get("onset_review"):
+                    raise ValueError(f"Missing eligibility rationale for {key}")
     for n in nodes.values():
         if n.get("origin"):
             references = n["text"].partition("\nReferences\n")[2]
@@ -107,7 +128,7 @@ def build():
             """)
             for n in nodes:
                 conn.execute("INSERT INTO nodes VALUES(?,?,?,?)", (n["id"], n["kind"], n["title"], json.dumps(n)))
-                conn.execute("INSERT INTO documents VALUES(?,?,?,?)", (n["id"], n["title"], n["text"],
+                conn.execute("INSERT INTO documents VALUES(?,?,?,?)", (n["id"], n["title"], "\n".join(filter(None, (n["text"], n.get("measured"), n.get("groups"), n.get("location"), n.get("onset_review")))),
                              " ".join(str(n.get(k, "")) for k in ("id","authors","module","status","accession"))))
             conn.executemany("INSERT INTO edges VALUES(?,?,?)", edges)
         conn.close()
